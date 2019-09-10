@@ -3,9 +3,9 @@ package vecmath
 import "math"
 
 type Vec3f struct {
-	X float32
-	Y float32
-	Z float32
+	X float32 // X coordinate
+	Y float32 // Y coordinate
+	Z float32 // Z coordinate
 }
 
 func (vec *Vec3f) Length() float64 {

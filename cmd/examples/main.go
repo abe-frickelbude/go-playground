@@ -12,14 +12,13 @@ const (
 	EPSILON         = 1.19e-07
 )
 
-//func main() {
-func ix() {
+func main() {
 
 	defer fmt.Println("done!")
 
 	fmt.Println("Hello, 世界")
 	fmt.Println("The time is", time.Now())
-	//for(1..10)
+	// for(1..10)
 	//	fmt.Println(rand.Intn(100))
 	x, y := test(34, 45)
 	fmt.Println(x, y)
@@ -33,9 +32,9 @@ func ix() {
 	f := float64(x)
 	fmt.Println(f)
 
-	for i := 0; i < 100; i++ {
-		fmt.Println(i * i)
-	}
+	// for i := 0; i < 100; i++ {
+	// 	fmt.Println(i * i)
+	// }
 
 	fmt.Println(pow(2, 3, 9))
 	fmt.Println(pow(2, 3, 7))
@@ -49,6 +48,20 @@ func ix() {
 
 	switchStuff()
 	slices()
+
+	compSignal := make(chan int)
+	for i := 0; i < 10; i++ {
+		announce("Timeout reached", 1e9, compSignal)
+		<-compSignal // wait for announce() to finish,  discard received value
+	}
+}
+
+func announce(message string, delay time.Duration, c chan int) {
+	go func() {
+		time.Sleep(delay)
+		fmt.Println(message)
+		c <- 1
+	}() // Note the parentheses - must call the function.
 }
 
 func test(x, y int) (a, b int) {
@@ -79,7 +92,6 @@ func sqrt(x float64) float64 {
 	return z
 }
 
-
 func switchStuff() {
 	t := time.Now()
 	// switch with no condition can be used to replace a typical ugly if-then-else-if-.... chain
@@ -96,14 +108,14 @@ func switchStuff() {
 func slices() {
 
 	a := make([]int, 5)
-	for i:= range a {
+	for i := range a {
 		a[i] = i
 	}
 
 	printSlice("a", a)
 
 	b := make([]int, 3, 5)
-	for i:= range b {
+	for i := range b {
 		b[i] = i
 	}
 
@@ -119,3 +131,5 @@ func slices() {
 func printSlice(s string, x []int) {
 	fmt.Printf("%s len=%d cap=%d %v\n", s, len(x), cap(x), x)
 }
+
+
